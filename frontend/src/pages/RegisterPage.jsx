@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL; 
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -10,7 +11,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5005/api/register', { email, password });
+      const response = await axios.post(`${API_BASE_URL}/api/register`, { email, password });
       alert(response.data.message);
       navigate('/login'); // Redirect to login page
     } catch (err) {

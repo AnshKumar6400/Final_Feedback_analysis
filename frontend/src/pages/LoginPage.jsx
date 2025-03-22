@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,7 +10,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5005/api/login', { email, password });
+      const response = await axios.post(`${API_BASE_URL}/api/login`, { email, password });
       alert(response.data.message);
       console.log('Login response:', response.data);
       // Store token if needed

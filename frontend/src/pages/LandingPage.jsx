@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 import { ChartBarIcon, ChatBubbleBottomCenterTextIcon, BoltIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 const features = [
@@ -63,7 +64,7 @@ export default function LandingPage() {
         
         if (userEmail && token) {
             try {
-                await axios.post('http://localhost:5005/api/search-history', {
+                await axios.post(`${API_BASE_URL}/api/search-history`, {
                     userEmail: userEmail,
                     searchUrl: url,
                     searchResponse: response.data

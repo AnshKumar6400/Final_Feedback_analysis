@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
-
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 const HistoryPage = () => {
     const [searchHistory, setSearchHistory] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +18,7 @@ const HistoryPage = () => {
             }
 
             try {
-                const response = await axios.get('http://localhost:5005/api/search-history', {
+                const response = await axios.get(`${API_BASE_URL}/api/search-history`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
