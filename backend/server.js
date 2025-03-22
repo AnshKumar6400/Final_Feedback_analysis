@@ -21,7 +21,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
@@ -29,7 +29,8 @@ const authenticate = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) return res.status(401).json({ message: 'Unauthorized' });
 
-  jwt.verify(token, 'secret', (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+
     if (err) return res.status(401).json({ message: 'Unauthorized' });
 
     req.user = decoded;
@@ -78,7 +79,7 @@ app.post('/api/login', async (req, res) => {
     }
 
     // Generate JWT Token
-    const token = jwt.sign({ id: user._id, email: user.email }, 'secret', { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     res.status(200).json({ message: 'Login successful', token, email: user.email });
   } catch (err) {
@@ -127,5 +128,5 @@ app.get('/api/user-profile', authenticate, (req, res) => {
 });
 
 // Start the Server
-const PORT = 5005||process.env.PORT;
+const PORT =process.env.PORT|| 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
