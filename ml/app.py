@@ -33,6 +33,10 @@ mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = mongo_client["Feedback_Analysis"]
 search_history = db["searchhistories"]
 
+if not os.path.exists(spacy.util.get_package_path("en_core_web_sm")):
+    from spacy.cli import download
+    download("en_core_web_sm")
+
 nlp = spacy.load("en_core_web_sm")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 bert_model = AutoModel.from_pretrained("bert-base-uncased")

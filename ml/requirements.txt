@@ -1,4 +1,5 @@
 flask
+gunicorn
 torch
 joblib
 pandas
@@ -11,5 +12,4 @@ numpy
 scikit-learn
 requests
 python-dotenv
-
-# Run after pip install: python -m spacy download en_core_web_sm
+pymongo
