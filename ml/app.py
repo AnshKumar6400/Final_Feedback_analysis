@@ -43,6 +43,8 @@ bert_model = AutoModel.from_pretrained("bert-base-uncased")
 
 API_TOKEN = os.getenv("HF_API_TOKEN")
 API_URL = os.getenv("API_URL")
+
+
 headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
 
