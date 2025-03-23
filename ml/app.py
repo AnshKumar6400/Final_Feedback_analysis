@@ -29,7 +29,7 @@ CORS(app)
 warnings.filterwarnings("ignore", category=ResourceWarning)
 
 # MongoDB Connection
-mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
+mongo_client = pymongo.MongoClient(os.getenv("MONGO_URI"))
 db = mongo_client["Feedback_Analysis"]
 search_history = db["searchhistories"]
 
@@ -394,6 +394,5 @@ def scrape():
             browser.quit()
 
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Use Render's provided PORT
-    app.run(debug=True, host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)
